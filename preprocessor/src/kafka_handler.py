@@ -22,7 +22,7 @@ def build_consumner(bootstrap_servers: str, group_id: str, topics: Iterable[str]
 def build_producer(bootstrap_servers: str) -> KafkaProducer:
     "Build a Kafka producer"
     producer = KafkaProducer(
-        boostrap_servers=bootstrap_servers,
+        bootstrap_servers=bootstrap_servers,
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
         key_serializer=lambda k: json.dumps(k).encode("utf-8") if k is not None else None,
         linger_ms=10,
