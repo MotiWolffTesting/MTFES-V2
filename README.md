@@ -1,6 +1,6 @@
-# Malicious Text Feature Engineering System (MTFES-V2)
+# Malicious Text Feature Engineering System (Week_11_Kafka_Malicious_Text)
 
-MTFES-V2 is a modular system for processing, enriching, and persisting text data, designed for scalable deployment and feature engineering on malicious or antisemitic content. It uses Kafka for inter-service communication and MongoDB for storage.
+Week_11_Kafka_Malicious_Text-V2 is a modular system for processing, enriching, and persisting text data, designed for scalable deployment and feature engineering on malicious or antisemitic content. It uses Kafka for inter-service communication and MongoDB for storage.
 
 ## Collaborators
 - Ahron Frenkel
