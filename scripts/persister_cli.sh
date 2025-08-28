@@ -7,7 +7,7 @@
 
 # Run locally on bridge network, connecting to mtfes-mongo container:
 "docker run -d --name persister-local \
-  -e KAFKA_BOOTSTRAP_SERVERS=\"localhost:9092\" \
+  -e KAFKA_BOOTSTRAP_SERVERS=\"redpanda:9092\" \
   -e PERSISTER_GROUP_ID=\"persister_group\" \
   -e TOPIC_ANTISEMITIC=\"enriched_preprocessed_tweets_antisemitic\" \
   -e TOPIC_NOT_ANTISEMITIC=\"enriched_preprocessed_tweets_not_antisemitic\" \
