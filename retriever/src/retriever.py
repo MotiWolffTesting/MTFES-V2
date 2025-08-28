@@ -73,11 +73,11 @@ class MongoRetriever:
             if key in doc:
                 val = doc[key]
                 if isinstance(val, (int, float)):
-                    return int(val) == 0
+                    return int(val) == 1
                 if isinstance(val, str):
-                    return val.lower() in {"0", "false", "antisemitic", "yes"}
+                    return val.lower() in {"1", "true", "antisemitic", "yes"}
                 if isinstance(val, bool):
-                    return bool(val)
+                    return val is True
         return False
     
     def _extract_createdate(self, doc: Dict[str, Any]) -> Optional[datetime]:
@@ -103,7 +103,7 @@ class MongoRetriever:
         mapped = {
             "id": str(doc.get("_id")) if isinstance(doc.get("_id"), ObjectId) else str(doc.get("_id")),
             "createdate": cdt,
-            "antisemietic": 1 if self._is_antisemitic(doc) else 0,
+            "antisemitic": 1 if self._is_antisemitic(doc) else 0,
             "original_text": text,
         }
         return mapped
