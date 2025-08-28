@@ -73,10 +73,10 @@ class MongoRetriever:
             if key in doc:
                 val = doc[key]
                 if isinstance(val, (int, float)):
-                    return int(val) == 1
+                    return int(val) == 0
                 if isinstance(val, str):
-                    return val.lower() in {"1", "true", "antisemitic", "yes"}
-                if isinstance (val, bool):
+                    return val.lower() in {"0", "false", "antisemitic", "yes"}
+                if isinstance(val, bool):
                     return bool(val)
         return False
     
