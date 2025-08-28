@@ -17,8 +17,8 @@ class PersisterConfig:
     @staticmethod
     def from_env() -> "PersisterConfig":
         return PersisterConfig(
-            mongodb_uri=os.getenv("MONGODB_URI", "localhost:27017"),
-            mongodb_db_name=os.getenv("MONGODB_DB_NAME", "PersisterIranMalDB"),
+            mongodb_uri=os.getenv("MONGODB_URI", "mongodb://localhost:27017"),
+            mongodb_db_name=os.getenv("MONGODB_DB_NAME", "IranMalDBLocal"),
             mongodb_collection_antisemitic_name=os.getenv("MONGODB_COLLECTION_ANTISEMITIC_NAME", "tweets_antisemitic"),
             mongodb_collection_not_antisemitic_name=os.getenv("MONGODB_COLLECTION_NOT_ANTISEMITIC_NAME", "tweets_not_antisemitic"),
             kafka_bootstrap_servers=os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"),
