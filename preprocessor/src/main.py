@@ -41,11 +41,13 @@ def main() -> None:
                     value = record.value
                     # Transform message using preprocessor
                     transformed = transform_message(value, pre)
-                    # Choose topic based on antisemitic flag
+                    # Route based on antisemitic flag (supports both 'antisemitic' and legacy 'antisemietic')
+                    flag = transformed.get("antisemitic")
+                    if flag is None:
+                        flag = transformed.get("antisemietic", 0)
                     topic = (
-                    config.produce_topic_antisemitic
-                    if transformed.get("antisemietic", 0) == 0
-                    else config.produce_topic_not_antisemitic
+                        config.produce_topic_antisemitic if int(flag or 0) == 1
+                        else config.produce_topic_not_antisemitic
                     )
                     # Send transformed message to Kafka
                     producer.send(topic, transformed, key=transformed.get("id"))
