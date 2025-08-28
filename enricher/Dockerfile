@@ -6,8 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 COPY enricher/requirements.txt /app/requirements.txt
-
 RUN pip install --no-cache-dir -r /app/requirements.txt
+
 ENV NLTK_DATA=/usr/local/nltk_data
 RUN python - <<'PY'
 import nltk
