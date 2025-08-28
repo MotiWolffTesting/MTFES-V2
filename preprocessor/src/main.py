@@ -43,9 +43,9 @@ def main() -> None:
                     transformed = transform_message(value, pre)
                     # Choose topic based on antisemitic flag
                     topic = (
-                        config.produce_topic_antisemitic
-                        if transformed.get("antisemitic", 0) == 1
-                        else config.produce_topic_not_antisemitic
+                    config.produce_topic_antisemitic
+                    if transformed.get("antisemietic", 0) == 0
+                    else config.produce_topic_not_antisemitic
                     )
                     # Send transformed message to Kafka
                     producer.send(topic, transformed, key=transformed.get("id"))
