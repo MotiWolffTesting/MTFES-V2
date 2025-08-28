@@ -5,12 +5,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-RUN apt-get updae && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 COPY preprocessor/requirements.txt /app/requirements.txt
-RUN pip install --no_cache-dir -r /app/requirements.txt && \
+RUN pip install --no-cache-dir -r /app/requirements.txt && \
     python - <<'PY'
 import nltk
 try:

@@ -1,9 +1,4 @@
-import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
-
-nltk.download('vader_lexicon')
-
 
 class SentimentAnalyzer:
     def __init__(self):
