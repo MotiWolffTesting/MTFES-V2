@@ -17,16 +17,3 @@ def build_consumer(bootstrap_servers: str, group_id: str, topics: Iterable[str])
         max_poll_records=200,
     )
     return consumer
-
-
-def build_producer(bootstrap_servers: str) -> KafkaProducer:
-    """Build a Kafka producer"""
-    producer = KafkaProducer(
-        bootstrap_servers=bootstrap_servers,
-        value_serializer=lambda v: json.dumps(v).encode("utf-8"),
-        key_serializer=lambda k: json.dumps(k).encode("utf-8") if k is not None else None,
-        linger_ms=10,
-        retries=5,
-        acks="all"
-    )
-    return producer

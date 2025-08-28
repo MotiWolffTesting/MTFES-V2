@@ -3,6 +3,7 @@ import logging
 import os
 from datetime import datetime
 from typing import Any, List, Dict, Optional, Tuple
+from dateutil import parser as date_parser
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from pymongo.collection import Collection
@@ -75,19 +76,35 @@ class MongoRetriever:
                     return int(val) == 1
                 if isinstance(val, str):
                     return val.lower() in {"1", "true", "antisemitic", "yes"}
-                if isinstance (val, bool):
-                    return bool(val)
+                if isinstance(val, bool):
+                    return val is True
         return False
+    
+    def _extract_createdate(self, doc: Dict[str, Any]) -> Optional[datetime]:
+        "Extract the createdate from a document"
+        for key in ("createdate", "created_at", "createdAt", "created", "date", "timestamp", "time"):
+            if key in doc and doc[key]:
+                val = doc[key]
+                if isinstance(val, datetime):
+                    return val
+                try:
+                    return date_parser.parse(str(val))
+                except Exception:
+                    pass
+        oid = doc.get("_id")
+        if isinstance(oid, ObjectId):
+            return oid.generation_time
+        return None
         
     def _map_record(self, doc: Dict[str, Any]) -> Dict[str, Any]:
         "Map a document to a record."
-        createdata = doc.get("createdate")
-        text = doc.get("text") or doc.get("original_text") or doc.get("Text") or ""
+        text = doc.get("text") or doc.get("original_text") or ""
+        cdt = self._extract_createdate(doc)
         mapped = {
             "id": str(doc.get("_id")) if isinstance(doc.get("_id"), ObjectId) else str(doc.get("_id")),
-            "createdate": createdata,
+            "createdate": cdt,
             "antisemitic": 1 if self._is_antisemitic(doc) else 0,
-            "original_text": text
+            "original_text": text,
         }
         return mapped
     
